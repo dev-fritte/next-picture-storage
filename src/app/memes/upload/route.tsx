@@ -1,6 +1,6 @@
 import {getMemes} from 'src/app/memes/data'
 import {list, put} from '@vercel/blob';
-import {NextApiRequest, NextApiResponse} from 'next'
+import {NextRequest} from 'next/server'
 
 export async function GET(request: Request) {
     console.log('executing POST route handler');
@@ -15,20 +15,20 @@ export async function GET(request: Request) {
     return Response.json(memes)
 }
 
-export async function POST(request: NextApiRequest, response: NextApiResponse) {
+export async function POST(request: NextRequest) {
     console.log('executing POST route handler');
     console.log('request', request)
 
-    const data = request.body;
-
+    const data = await request.formData();
     console.log('data', data);
+    const file = data.get('file') as File;
 
-    const blob = await put(data.name, data.image, {
+    const blob = await put(file.name, file, {
         access: 'public',
         addRandomSuffix: true
     })
 
     console.log('blob', blob)
 
-    response.status(200).json(blob.url);
+    return Response.json(blob.url);
 }

@@ -11,7 +11,7 @@ export default async function MemesOverview() {
                 <p>{'Memes Overview'}</p>
 
                 <div className={'flex flex-wrap gap-2'}>
-                    {response.blobs.map((blob) => (
+                    {response.map((blob) => (
                         <a key={blob.pathname} href={blob.url}>
                             (blob.pathname)
                         </a>

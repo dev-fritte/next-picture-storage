@@ -9,5 +9,5 @@ export async function getMemes() {
 }
 
 export async function getBlobList() {
-    return await list();
+    return await list().then(res => res.blobs);
 }
