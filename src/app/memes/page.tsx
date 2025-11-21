@@ -16,10 +16,12 @@ export default async function MemesOverview() {
     //     .then(res => res.json())
     //     .then((resp: MemeResponse) => resp?.data?.memes)
 
+    console.log('number of blobs: ', blobs.length)
+
     return (
         <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
             <main
-                className="flex min-h-screen w-full flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+                className="flex min-h-screen w-full flex-col items-center py-32 px-16 bg-white dark:bg-black sm:items-start">
                 <p>{'Memes Overview'}</p>
 
                 <div className={'flex flex-wrap gap-2'}>
