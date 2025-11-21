@@ -10,7 +10,7 @@ export default async function MemesOverview() {
         <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
             <main
                 className="flex min-h-screen w-full flex-col gap-4 items-center py-32 px-16 bg-white dark:bg-black sm:items-start">
-                <p>{'Memes Overview'}</p>
+                <h2>{'Memes Overview'}</h2>
 
                 <div className={'flex flex-wrap gap-2'}>
                     {blobs.map(blob => <a key={blob.pathname} href={blob.url}>
