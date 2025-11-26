@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
     console.log('data', data);
 
     const file = data.get('file') as File;
+    const tagArray = data.get('tags');
 
     const blob = await put(file.name, file, {
         access: 'public',
