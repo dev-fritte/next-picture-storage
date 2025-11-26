@@ -5,8 +5,7 @@ import {PICTURE_TABLE} from 'src/supabase/tablenames'
 import {MemeEntry} from 'src/app/memes/_types/meme-entry-types'
 
 export async function POST(request: NextRequest) {
-    console.log('executing GET route handler for /memes');
-    console.log('request', request)
+    console.log('/memes/new - upload new meme with tags');
 
     const data = await request.formData();
     console.log('data', data);
