@@ -1,2 +1,2 @@
 
-export const PICTURE_TABLE = "next-picture-storage-supabase";
+export const PICTURE_TABLE = "pictures";
