@@ -5,32 +5,28 @@ import {PICTURE_TABLE} from 'src/supabase/tablenames'
 import {MemeEntry} from 'src/app/memes/_types/meme-entry-types'
 
 export async function POST(request: NextRequest) {
-    console.log('/memes/new - upload new meme with tags');
-
     const data = await request.formData();
-    console.log('data', data);
 
     const file = data.get('file') as File;
     const tagArray = data.getAll('tags') as unknown as string[];
-    console.log('tags', tagArray);
+
+    console.log('/memes/new - upload new meme with tags: ', tagArray);
 
     const blob = await put(file.name, file, {
         access: 'public',
         addRandomSuffix: true
-    })
-
-    console.log('blob', blob)
+    });
 
     const supabase = await createClient();
-    const {data: entries} = await supabase.from(PICTURE_TABLE).select();
-    console.log('entries', entries);
 
     const supabaseResponse = await supabase
         .from(PICTURE_TABLE)
         .insert({blob_url: blob.url, tags: tagArray} as MemeEntry)
         .select();
 
-    console.log('error', supabaseResponse)
+    if (supabaseResponse?.error) {
+        console.error(supabaseResponse?.error);
+    }
 
-    return Response.json(supabaseResponse);
+    return Response.json(supabaseResponse?.data);
 }
