@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
     const file = data.get('file') as File;
     const tagArray = data.get('tags') as unknown as string[];
     console.log('tags', tagArray);
-    tagArray.forEach((tag) => tag.toLowerCase())
 
     const blob = await put(file.name, file, {
         access: 'public',
