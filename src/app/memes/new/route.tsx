@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     console.log('data', data);
 
     const file = data.get('file') as File;
-    const tagArray = data.get('tags') as unknown as string[];
+    const tagArray = data.getAll('tags') as unknown as string[];
     console.log('tags', tagArray);
 
     const blob = await put(file.name, file, {
@@ -27,10 +27,10 @@ export async function POST(request: NextRequest) {
 
     const supabaseResponse = await supabase
         .from(PICTURE_TABLE)
-        .insert({blob_url: blob.downloadUrl, tags: tagArray} as MemeEntry)
+        .insert({blob_url: blob.url, tags: tagArray} as MemeEntry)
         .select();
 
     console.log('error', supabaseResponse)
 
-    return Response.json(blob.url);
+    return Response.json(supabaseResponse);
 }
