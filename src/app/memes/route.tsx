@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
     const file = data.get('file') as File;
     const tagArray = data.get('tags') as unknown as string[];
     console.log('tags', tagArray);
+    tagArray.forEach((tag) => tag.toLowerCase())
 
     const blob = await put(file.name, file, {
         access: 'public',
@@ -24,13 +25,16 @@ export async function POST(request: NextRequest) {
 
     const supabase = await createClient();
 
+    console.log('client created', supabase)
+
     const {data: entries} = await supabase.from(PICTURE_TABLE).select();
 
     console.log('entries', entries);
 
     const supabaseResponse = await supabase
         .from(PICTURE_TABLE)
-        .insert({blob_url: blob.downloadUrl, tags: tagArray} as MemeEntry);
+        .insert({blob_url: blob.downloadUrl, tags: tagArray} as MemeEntry)
+        .select();
 
     console.log('error', supabaseResponse)
 
