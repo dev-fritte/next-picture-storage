@@ -22,11 +22,7 @@ export async function POST(request: NextRequest) {
     console.log('blob', blob)
 
     const supabase = await createClient();
-
-    console.log('client created', supabase)
-
     const {data: entries} = await supabase.from(PICTURE_TABLE).select();
-
     console.log('entries', entries);
 
     const supabaseResponse = await supabase
