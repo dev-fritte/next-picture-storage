@@ -6,8 +6,10 @@ import {MemeEntry} from 'src/app/memes/_types/meme-entry-types'
 
 export async function GET(request: NextRequest) {
 
-    const tagArray = request?.nextUrl?.searchParams.get('tags');
-    console.log('/memes/find - find meme with tags: ', tagArray);
+    const tags = request?.nextUrl?.searchParams.get('tags');
+    console.log('/memes/find - find meme with tags: ', tags);
+
+    const tagArray = Array.isArray(tags) ? tags : [tags]
 
     const supabase = await createClient();
 
