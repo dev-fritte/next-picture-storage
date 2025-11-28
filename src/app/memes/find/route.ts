@@ -6,8 +6,7 @@ import {MemeEntry} from 'src/app/memes/_types/meme-entry-types'
 
 export async function GET(request: NextRequest) {
 
-    const data = await request.formData();
-    const tagArray = data.getAll('tags') as unknown as string[];
+    const tagArray = request?.nextUrl?.searchParams.get('tags');
     console.log('/memes/find - find meme with tags: ', tagArray);
 
     const supabase = await createClient();
@@ -22,6 +21,6 @@ export async function GET(request: NextRequest) {
     const selectedMeme = matchingMemes?.[Math.random() * matchingMemes?.length - 1] as MemeEntry;
 
     console.log('selectedMeme', selectedMeme, matchingMemes);
-    
+
     return Response.json(selectedMeme);
 }
