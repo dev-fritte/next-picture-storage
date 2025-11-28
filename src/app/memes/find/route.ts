@@ -1,6 +1,7 @@
 import {NextRequest} from 'next/server'
 import {createClient} from 'src/supabase/serverClient'
 import {PICTURE_TABLE} from 'src/supabase/tablenames'
+import {MemeEntry} from 'src/app/memes/_types/meme-entry-types'
 
 
 export async function GET(request: NextRequest) {
@@ -16,5 +17,11 @@ export async function GET(request: NextRequest) {
         .select()
         .overlaps('tags', tagArray as unknown as string[])
 
-    return Response.json(supabaseResponse?.data);
+    const matchingMemes = supabaseResponse?.data;
+
+    const selectedMeme = matchingMemes?.[Math.random() * matchingMemes?.length - 1] as MemeEntry;
+
+    console.log('selectedMeme', selectedMeme, matchingMemes);
+    
+    return Response.json(selectedMeme);
 }
