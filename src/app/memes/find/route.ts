@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
     console.log('matching', matchingMemes);
 
-    const selectedMeme = matchingMemes?.[Math.random() * matchingMemes?.length] as MemeEntry;
+    const selectedMeme = matchingMemes?.[Math.floor(Math.random() * matchingMemes?.length)] as MemeEntry;
 
     console.log('selectedMeme', selectedMeme, matchingMemes);
 
