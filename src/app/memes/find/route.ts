@@ -18,6 +18,8 @@ export async function GET(request: NextRequest) {
 
     const matchingMemes = supabaseResponse?.data;
 
+    console.log('matching', matchingMemes);
+
     const selectedMeme = matchingMemes?.[Math.random() * matchingMemes?.length - 1] as MemeEntry;
 
     console.log('selectedMeme', selectedMeme, matchingMemes);
